@@ -8,14 +8,20 @@ import com.thebiggestsnake.theBiggestSnake;
 import java.util.ArrayList;
 
 public class Snake {
-    private ArrayList<Circle> circles;
+    private ArrayList<SnakeModule> snakeModules;
     private theBiggestSnake game;
+    ShapeRenderer renderer;
 
     public Snake(theBiggestSnake g){
         this.game = g;
+        this.snakeModules = new ArrayList<SnakeModule>();
+        this.renderer = new ShapeRenderer();
     }
 
     public void draw(){
-        //TODO
+        for(SnakeModule sM : this.snakeModules) {
+            Circle circle = sM.getModule();
+            renderer.circle(circle.x,circle.y,circle.radius);
+        }
     }
 }
