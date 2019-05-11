@@ -7,14 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class theBiggestSnake extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+	private SpriteBatch batch;
+	private Texture img;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-		String str = "Dupa";
 	}
 
 	@Override
