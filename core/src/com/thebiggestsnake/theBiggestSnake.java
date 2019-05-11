@@ -12,7 +12,7 @@ import com.thebiggestsnake.views.*;
 
 
 public class theBiggestSnake extends Game {
-	  private SpriteBatch batch;
+    private SpriteBatch batch;
     private LoadingScreen loadingScreen;
     private PreferencesScreen preferencesScreen;
     private MenuScreen menuScreen;
@@ -31,9 +31,11 @@ public class theBiggestSnake extends Game {
         setScreen(loadingScreen);
 		this.snakes = new ArrayList<Snake>();
 		this.snakes.add(new Snake(this));
+		batch = new SpriteBatch();
 	}
 
-	@Override
+	// IT WILL BE IN THE MAINSCREEN VIEW
+	/*@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -42,7 +44,7 @@ public class theBiggestSnake extends Game {
 		for (Snake s : this.snakes)
 			s.draw();
 		batch.end();
-	}
+	}*/
 	
 	@Override
 	public void dispose () {

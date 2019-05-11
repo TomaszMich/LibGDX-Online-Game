@@ -18,12 +18,10 @@ public class MenuScreen implements Screen {
         this.parent = parent;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-
     }
 
     @Override
     public void show() {
-        // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(false);
