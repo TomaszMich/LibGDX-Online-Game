@@ -56,4 +56,11 @@ public class Snake {
         }
     }
 
+    public void draw(){
+        //TODO
+    }
+
+    public void draw(){
+        //TODO
+    }
 }
