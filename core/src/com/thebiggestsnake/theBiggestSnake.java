@@ -6,16 +6,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.thebiggestsnake.snake.Snake;
+import java.util.ArrayList;
 import com.thebiggestsnake.views.*;
 
 
 public class theBiggestSnake extends Game {
-	private SpriteBatch batch;
+	  private SpriteBatch batch;
     private LoadingScreen loadingScreen;
     private PreferencesScreen preferencesScreen;
     private MenuScreen menuScreen;
     private MainScreen mainScreen;
     private EndScreen endScreen;
+  	private ArrayList<Snake> snakes;
 
     public final static int MENU = 0;
     public final static int PREFERENCES = 1;
@@ -26,16 +29,20 @@ public class theBiggestSnake extends Game {
 	public void create () {
         loadingScreen = new LoadingScreen(this);
         setScreen(loadingScreen);
-		batch = new SpriteBatch();
+		this.snakes = new ArrayList<Snake>();
+		this.snakes.add(new Snake(this));
 	}
 
-/*	@Override
+	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+
+		for (Snake s : this.snakes)
+			s.draw();
 		batch.end();
-	}*/
+	}
 	
 	@Override
 	public void dispose () {
