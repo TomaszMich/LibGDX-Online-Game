@@ -23,11 +23,11 @@ public class Snake {
         this.renderer = new ShapeRenderer();
         Random rd = new Random();
         this.color = new Color(rd.nextFloat(),rd.nextFloat(),rd.nextFloat(),rd.nextFloat());
-        float x = rd.nextFloat();
-        float y = rd.nextFloat();
-        float r = rd.nextFloat();
+        float x = 500;//rd.nextFloat();
+        float y = 500;//rd.nextFloat(); NIE BYLO NIC WIDAC
+        float r = 15;//rd.nextFloat();
         snakeModules.add(new SnakeHead(x, y,r,new Vector2(0,1),this));
-        for (int i = 1; i < 10; i++){
+        for (int i = 1; i < 20; i++){
             snakeModules.add(new SnakeModule(x,y - i,r,new Vector2(0,1),this));
         }
     }
