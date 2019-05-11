@@ -14,7 +14,6 @@ public class theBiggestSnake extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		String str = "Dupa";
 	}
 
 	@Override
