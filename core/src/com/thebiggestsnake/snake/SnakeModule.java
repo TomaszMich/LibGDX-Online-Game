@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 public class SnakeModule {
     private Circle module;
     private Vector2 dirVec;
+    private Snake snake;
 
     public SnakeModule(float x, float y, float radius, Vector2 startingDir){
         module = new Circle(x, y, radius);
@@ -20,5 +21,9 @@ public class SnakeModule {
     public void move(Vector2 newDirVec){
         this.move();
         dirVec.set(newDirVec);
+    }
+
+    public Circle getModule(){
+        return module;
     }
 }
