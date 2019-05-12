@@ -19,7 +19,6 @@ public class SnakeModule {
     }
 
     public void move(){
-        //TODO include snake's speed into calculations
         module.setX(module.x + dirVec.x);
         module.setY(module.y + dirVec.y);
     }

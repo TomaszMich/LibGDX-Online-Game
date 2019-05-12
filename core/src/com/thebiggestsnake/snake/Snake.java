@@ -13,22 +13,21 @@ public class Snake {
     private ArrayList<SnakeModule> modules;
     private theBiggestSnake game;
     private float speed;
-    private ShapeRenderer renderer;
 
-    public Snake(theBiggestSnake g, ShapeRenderer renderer){
+    public Snake(theBiggestSnake g){
         this.game = g;
         this.modules = new ArrayList<SnakeModule>();
-        modules.add(new SnakeHead(100, 200, 24, new Vector2(1,1).nor().scl(2), this));
-        for(int i = 1; i < 50; i++){
+        modules.add(new SnakeHead(100, 200, 22, new Vector2(1,1).nor().scl(2), this));
+        for(int i = 1; i < 30; i++){
             modules.add(new SnakeModule(100, 200 - 10f*i, 20, new Vector2(0,0), this));
         }
         this.speed = 3;
-        this.renderer = renderer;
     }
 
-    public void draw(){
-        for(SnakeModule module : modules)
-            module.draw(this.renderer);
+    public void draw(ShapeRenderer renderer){
+        for(SnakeModule module : modules.subList(1, modules.size()))
+            module.draw(renderer);
+        modules.get(0).draw(renderer);
     }
 
     public void move(){
