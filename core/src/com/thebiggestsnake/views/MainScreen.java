@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.thebiggestsnake.snake.Snake;
 import com.thebiggestsnake.theBiggestSnake;
 
@@ -13,6 +14,7 @@ public class MainScreen implements Screen {
     private theBiggestSnake parent;
     private SpriteBatch batch;
     private ArrayList<Snake> snakes;
+    private ShapeRenderer renderer = new ShapeRenderer();
 
 
     public MainScreen(theBiggestSnake parent) {
@@ -33,8 +35,10 @@ public class MainScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batch.begin();
-		for (Snake s : this.snakes)
-			s.draw();
+		for (Snake s : this.snakes){
+            s.move();
+            s.draw(renderer);
+        }
 		batch.end();
 	}
 

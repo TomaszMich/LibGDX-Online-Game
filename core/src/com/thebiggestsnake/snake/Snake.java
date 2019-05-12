@@ -1,59 +1,49 @@
 package com.thebiggestsnake.snake;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.thebiggestsnake.snake.snakeparts.SnakeHead;
-import com.thebiggestsnake.theBiggestSnake;
 import com.thebiggestsnake.snake.snakeparts.SnakeModule;
+import com.thebiggestsnake.theBiggestSnake;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Snake {
-    private ArrayList<SnakeModule> snakeModules;
+    private ArrayList<SnakeModule> modules;
     private theBiggestSnake game;
-    ShapeRenderer renderer;
-    Color color;
+    private float speed;
 
     public Snake(theBiggestSnake g){
         this.game = g;
-        this.snakeModules = new ArrayList<SnakeModule>();
-        this.renderer = new ShapeRenderer();
-        Random rd = new Random();
-        this.color = new Color(rd.nextFloat(),rd.nextFloat(),rd.nextFloat(),rd.nextFloat());
-        float x = 500;//rd.nextFloat();
-        float y = 500;//rd.nextFloat(); NIE BYLO NIC WIDAC
-        float r = 15;//rd.nextFloat();
-        snakeModules.add(new SnakeHead(x, y,r,new Vector2(0,1),this));
-        for (int i = 1; i < 20; i++){
-            snakeModules.add(new SnakeModule(x,y - i,r,new Vector2(0,1),this));
+        this.modules = new ArrayList<SnakeModule>();
+        modules.add(new SnakeHead(100, 200, 22, new Vector2(1,1).nor().scl(2), this));
+        for(int i = 1; i < 30; i++){
+            modules.add(new SnakeModule(100, 200 - 10f*i, 20, new Vector2(0,0), this));
+        }
+        this.speed = 3;
+    }
+
+    public void draw(ShapeRenderer renderer){
+        for(SnakeModule module : modules.subList(1, modules.size()))
+            module.draw(renderer);
+        modules.get(0).draw(renderer);
+    }
+
+    public void move(){
+        modules.get(0).move();
+        Circle prevCirc = modules.get(0).getModule();
+        Vector2 vector = new Vector2();
+        for(SnakeModule module : modules.subList(1, modules.size())){
+            Circle curCirc = module.getModule();
+            vector.set(prevCirc.x - curCirc.x, prevCirc.y - curCirc.y);
+            vector.nor().scl(this.speed);
+            module.move(vector);
+            prevCirc = curCirc;
         }
     }
 
-    public void draw(){
-        for(SnakeModule sM : this.snakeModules) {
-            Circle circle = sM.getModule();
-            renderer.begin(ShapeRenderer.ShapeType.Filled);
-            renderer.setColor(this.color);
-            renderer.circle(circle.x,circle.y,circle.radius);
-            renderer.end();
-        }
+    public float getSpeed(){
+        return this.speed;
     }
-
-    public void move(Vector2 newDirVec){
-        Vector2 newVec;
-        for(int i = 0; i < this.snakeModules.size(); i++){
-            if(i == 0) {
-                newVec = this.snakeModules.get(i).getDirVec();
-                this.snakeModules.get(i).move(newDirVec);
-            }
-            else{
-                newVec = this.snakeModules.get(i).getDirVec();
-                this.snakeModules.get(i).move(newVec);
-            }
-        }
-    }
-
 }
