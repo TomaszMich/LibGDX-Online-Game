@@ -6,12 +6,11 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.thebiggestsnake.snake.Snake;
 
-import java.awt.geom.Point2D;
 
 public class SnakeModule {
     protected Circle module;
     protected Vector2 dirVec;
-    private Snake snake;
+    protected Snake snake;
 
     public SnakeModule(float x, float y, float radius, Vector2 startingDir, Snake snake){
         module = new Circle(x, y, radius);
@@ -38,8 +37,7 @@ public class SnakeModule {
         return dirVec;
     }
 
-    public void draw(){
-        ShapeRenderer renderer = new ShapeRenderer();
+    public void draw(ShapeRenderer renderer){
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(Color.GREEN);
         renderer.circle(module.x, module.y, module.radius);
