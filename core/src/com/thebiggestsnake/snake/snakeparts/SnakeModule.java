@@ -1,12 +1,16 @@
 package com.thebiggestsnake.snake.snakeparts;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.thebiggestsnake.snake.Snake;
 
+import java.awt.geom.Point2D;
+
 public class SnakeModule {
-    private Circle module;
-    private Vector2 dirVec;
+    protected Circle module;
+    protected Vector2 dirVec;
     private Snake snake;
 
     public SnakeModule(float x, float y, float radius, Vector2 startingDir, Snake snake){
@@ -32,5 +36,13 @@ public class SnakeModule {
 
     public Vector2 getDirVec() {
         return dirVec;
+    }
+
+    public void draw(){
+        ShapeRenderer renderer = new ShapeRenderer();
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderer.setColor(Color.GREEN);
+        renderer.circle(module.x, module.y, module.radius);
+        renderer.end();
     }
 }
