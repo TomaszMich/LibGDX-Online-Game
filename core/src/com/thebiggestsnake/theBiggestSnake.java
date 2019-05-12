@@ -19,7 +19,7 @@ public class theBiggestSnake extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		this.snakes = new ArrayList<Snake>();
-		this.snakes.add(new Snake(this));
+		this.snakes.add(new Snake(this, new ShapeRenderer()));
 	}
 
 	@Override

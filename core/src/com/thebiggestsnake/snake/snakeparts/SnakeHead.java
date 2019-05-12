@@ -14,7 +14,9 @@ public class SnakeHead extends SnakeModule {
 
     @Override
     public void move(){
-        dirVec = dirVec.set(Gdx.input.getX() - module.x, Gdx.input.getY() - module.y).nor().scl(2);
+        int mouseX = Gdx.input.getX();
+        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        dirVec = dirVec.set(mouseX - module.x, mouseY - module.y).nor().scl(snake.getSpeed());
         super.move();
     }
 }
