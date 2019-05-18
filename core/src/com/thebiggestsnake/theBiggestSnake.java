@@ -28,8 +28,6 @@ public class theBiggestSnake extends Game {
         loadingScreen = new LoadingScreen(this);
         setScreen(loadingScreen);
 	}
-
-	// Render method is now in MainScreen view
 	
 	@Override
 	public void dispose () {
@@ -56,4 +54,5 @@ public class theBiggestSnake extends Game {
                 break;
         }
     }
+
 }
