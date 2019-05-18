@@ -1,6 +1,7 @@
 package com.thebiggestsnake.snake.snakeparts;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.thebiggestsnake.snake.Snake;
@@ -16,9 +17,9 @@ public class SnakeHead extends SnakeModule {
 
     @Override
     public void move(){
-        int mouseX = Gdx.input.getX();
-        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-        dirVec = dirVec.set(mouseX - module.x, mouseY - module.y).nor().scl(snake.getSpeed());
+        int mouseX = Gdx.input.getX() - Gdx.graphics.getWidth()/2;
+        int mouseY = Gdx.graphics.getHeight()/2 - Gdx.input.getY();
+        dirVec = dirVec.set(mouseX, mouseY).nor().scl(snake.getSpeed());
         super.move();
         leftEye.move();
     }
@@ -28,4 +29,5 @@ public class SnakeHead extends SnakeModule {
         super.draw(renderer);
         leftEye.draw(renderer);
     }
+
 }

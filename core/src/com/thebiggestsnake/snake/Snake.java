@@ -17,9 +17,9 @@ public class Snake {
     public Snake(theBiggestSnake g){
         this.game = g;
         this.modules = new ArrayList<SnakeModule>();
-        modules.add(new SnakeHead(100, 200, 22, new Vector2(1,1).nor().scl(2), this));
+        modules.add(new SnakeHead(1000, 500, 22, new Vector2(1,1).nor().scl(2), this));
         for(int i = 1; i < 30; i++){
-            modules.add(new SnakeModule(100, 200 - 10f*i, 20, new Vector2(0,0), this));
+            modules.add(new SnakeModule(1000, 500 - 10f*i, 20, new Vector2(0,0), this));
         }
         this.speed = 3;
     }
@@ -45,5 +45,10 @@ public class Snake {
 
     public float getSpeed(){
         return this.speed;
+    }
+
+    public SnakeModule getHead()
+    {
+        return modules.get(0);
     }
 }
