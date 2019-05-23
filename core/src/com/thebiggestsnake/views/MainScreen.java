@@ -11,9 +11,8 @@ import com.thebiggestsnake.snake.food.ListOfFood;
 import com.thebiggestsnake.snake.Snake;
 import com.thebiggestsnake.theBiggestSnake;
 import com.thebiggestsnake.snake.food.Food;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Random;
+
+import java.util.*;
 
 public class MainScreen implements Screen {
     static final int WORLD_WIDTH = 10000;
@@ -69,7 +68,7 @@ public class MainScreen implements Screen {
                 this.food.get(key).add(f);
             }
         }
-        this.food = null;
+
     }
 
     @Override
@@ -90,8 +89,12 @@ public class MainScreen implements Screen {
 
 
         //randering food
-        //for (food f : this.food)
-            //f.draw(renderer);
+        Enumeration e = this.food.keys();
+        while (e.hasMoreElements()) {
+            ArrayList<Food> list = this.food.get(e.nextElement());
+            for(Food f : list)
+                f.draw(renderer);
+        }
 
         //rendering snakes
         for (Snake s : this.snakes){
@@ -101,6 +104,21 @@ public class MainScreen implements Screen {
 
         cam.position.set(snakes.get(0).getHead().getModule().x, snakes.get(0).getHead().getModule().y, 0);
         cam.update();
+
+        //eating
+        int key = this.snakes.get(0).getKey();
+        ArrayList<Food> list = this.food.get(key);
+        if(list != null) {
+            Iterator<Food> iter = list.iterator();
+            while (iter.hasNext()) {
+                Food f = iter.next();
+                if (this.snakes.get(0).canEat(f.getCircle().x, f.getCircle().y))
+                    iter.remove();
+            }
+        }
+
+
+
 	}
 
     @Override

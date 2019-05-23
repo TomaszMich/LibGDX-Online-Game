@@ -45,9 +45,6 @@ public class SnakeModule {
         renderer.end();
     }
 
-    public int getKey(){
-        int yInt = (int)module.y / MainScreen.DENSITY_OF_DIVISION ;
-        return yInt;
-    }
+
 
 }
