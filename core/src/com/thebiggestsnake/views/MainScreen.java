@@ -112,8 +112,10 @@ public class MainScreen implements Screen {
             Iterator<Food> iter = list.iterator();
             while (iter.hasNext()) {
                 Food f = iter.next();
-                if (this.snakes.get(0).canEat(f.getCircle().x, f.getCircle().y))
+                if (this.snakes.get(0).canEat(f.getCircle().x, f.getCircle().y)) {
                     iter.remove();
+                    this.snakes.get(0).grow();
+                }
             }
         }
 

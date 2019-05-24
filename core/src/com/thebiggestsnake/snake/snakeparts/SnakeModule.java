@@ -45,6 +45,10 @@ public class SnakeModule {
         renderer.end();
     }
 
+    public void grow(){
+        this.module.radius +=  0.2f;
+    }
+
 
 
 }

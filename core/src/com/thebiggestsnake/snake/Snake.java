@@ -50,6 +50,20 @@ public class Snake {
         else return false;
     }
 
+    public void grow(){
+        int size = this.modules.size();
+        Vector2 v2 = new Vector2(this.modules.get(size - 1).getDirVec());
+        float x = this.modules.get(size - 1).getModule().x + (-1*v2.x);
+        float y = this.modules.get(size - 1).getModule().y + (-1*v2.y);
+        float r = this.modules.get(size - 1).getModule().radius;
+        SnakeModule newSnakeModule = new SnakeModule(x,y,r,v2,this);
+        this.modules.add(newSnakeModule);
+
+        for(SnakeModule sM : this.modules){
+            sM.grow();
+        }
+    }
+
     public int getKey(){
         int yInt = (int)modules.get(0).getModule().y / MainScreen.DENSITY_OF_DIVISION ;
         return yInt;
