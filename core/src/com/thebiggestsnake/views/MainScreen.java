@@ -7,25 +7,29 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector3;
+import com.thebiggestsnake.snake.food.ListOfFood;
 import com.thebiggestsnake.snake.Snake;
 import com.thebiggestsnake.theBiggestSnake;
+import com.thebiggestsnake.snake.food.Food;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class MainScreen implements Screen {
     static final int WORLD_WIDTH = 10000;
     static final int WORLD_HEIGHT = 10000;
     static final int VIEW_SCOPE = Gdx.graphics.getWidth();
+    public static final int DENSITY_OF_DIVISION = 50;
 
     private theBiggestSnake parent;
     private ArrayList<Snake> snakes;
+    private Hashtable<Integer,ListOfFood> food;
     private ShapeRenderer renderer;
     private SpriteBatch batch;
     private OrthographicCamera cam;
     private float camW;
     private float camH;
     private Texture background;
+
 
     public MainScreen(theBiggestSnake parent) {
         this.parent = parent;
@@ -43,6 +47,28 @@ public class MainScreen implements Screen {
         camH = cam.viewportHeight / 2f;
         cam.position.set(camW, camH, 0);
         cam.update();
+
+
+        //adding food
+        Random ran = new Random();
+        this.food = new Hashtable<Integer,ListOfFood>();
+        for(int i = 0; i < 500; i++){
+            float x = ran.nextFloat()*WORLD_WIDTH;
+            float y = ran.nextFloat()*WORLD_HEIGHT;
+
+            Food f = new Food(x,y,10);
+            int xInt = (int)x / this.DENSITY_OF_DIVISION ;
+            int yInt = (int)y / this.DENSITY_OF_DIVISION ;
+            int key = yInt;
+            if(this.food.containsKey(key)){
+                this.food.get(key).add(f);
+            }
+            else{
+                this.food.put(key, new ListOfFood<Food>(key));
+                this.food.get(key).add(f);
+            }
+        }
+
     }
 
     @Override
@@ -60,12 +86,41 @@ public class MainScreen implements Screen {
 		batch.draw(background, 0, 0, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 		batch.end();
         renderer.setProjectionMatrix(cam.combined);
+
+
+        //randering food
+        Enumeration e = this.food.keys();
+        while (e.hasMoreElements()) {
+            ArrayList<Food> list = this.food.get(e.nextElement());
+            for(Food f : list)
+                f.draw(renderer);
+        }
+
+        //rendering snakes
         for (Snake s : this.snakes){
             s.move();
             s.draw(renderer);
         }
-		cam.position.set(snakes.get(0).getHead().getModule().x, snakes.get(0).getHead().getModule().y, 0);
+
+        cam.position.set(snakes.get(0).getHead().getModule().x, snakes.get(0).getHead().getModule().y, 0);
         cam.update();
+
+        //eating
+        int key = this.snakes.get(0).getKey();
+        ArrayList<Food> list = this.food.get(key);
+        if(list != null) {
+            Iterator<Food> iter = list.iterator();
+            while (iter.hasNext()) {
+                Food f = iter.next();
+                if (this.snakes.get(0).canEat(f.getCircle().x, f.getCircle().y)) {
+                    iter.remove();
+                    this.snakes.get(0).grow();
+                }
+            }
+        }
+
+
+
 	}
 
     @Override

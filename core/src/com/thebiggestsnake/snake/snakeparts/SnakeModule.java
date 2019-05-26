@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.thebiggestsnake.snake.Snake;
+import com.thebiggestsnake.views.MainScreen;
 
 
 public class SnakeModule {
@@ -43,4 +44,11 @@ public class SnakeModule {
         renderer.circle(module.x, module.y, module.radius);
         renderer.end();
     }
+
+    public void grow(){
+        this.module.radius +=  0.2f;
+    }
+
+
+
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.thebiggestsnake.snake.snakeparts.SnakeHead;
 import com.thebiggestsnake.snake.snakeparts.SnakeModule;
 import com.thebiggestsnake.theBiggestSnake;
+import com.thebiggestsnake.views.MainScreen;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,30 @@ public class Snake {
         }
     }
 
+    public boolean canEat(float x, float y){
+        if(this.getHead().getModule().contains(x,y))
+            return true;
+        else return false;
+    }
+
+    public void grow(){
+        int size = this.modules.size();
+        Vector2 v2 = new Vector2(this.modules.get(size - 1).getDirVec());
+        float x = this.modules.get(size - 1).getModule().x + (-1*v2.x);
+        float y = this.modules.get(size - 1).getModule().y + (-1*v2.y);
+        float r = this.modules.get(size - 1).getModule().radius;
+        SnakeModule newSnakeModule = new SnakeModule(x,y,r,v2,this);
+        this.modules.add(newSnakeModule);
+
+        for(SnakeModule sM : this.modules){
+            sM.grow();
+        }
+    }
+
+    public int getKey(){
+        int yInt = (int)modules.get(0).getModule().y / MainScreen.DENSITY_OF_DIVISION ;
+        return yInt;
+    }
     public float getSpeed(){
         return this.speed;
     }
